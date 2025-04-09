@@ -7,10 +7,11 @@ router.get('/', async (req, res) => {
       console.log("Solicitud recibida...");
       const resultado = await db.query('SELECT * FROM coches');
       console.log("Resultado:", resultado.rows);
-      res.json(resultado.rows);
+      res.json({ success: true, coche:resultado.rows });
+
     } catch (err) {
       console.error("Error en la consulta:", err);
-      res.status(500).json({ error: err.message });
+      res.status(500).json({success: false,  error: err.message });
     }
   });
 router.post("/", async (req, res) => {

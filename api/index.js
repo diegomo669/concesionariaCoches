@@ -14,6 +14,8 @@ const modeloCocheRouter = require('./routes/modelo')
 const tipoCocheRouter = require('./routes/tipo_vehiculo')
 const RegistroCocheRouter = require('./routes/coche')
 const precioCocheRouter = require('./routes/precio')
+const reservasRouter = require('./routes/reservas');
+app.use('/reservas', reservasRouter);
 app.use('/coches',cochesRouter);
 app.use('/estadocoche',estadoCocheRouter);
 app.use('/marca',marcaCocheRouter);

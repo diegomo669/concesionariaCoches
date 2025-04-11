@@ -6,6 +6,7 @@ app.use(cors());
 
 app.use(express.json());
 const cochesRouter = require('./routes/coches');
+
 const estadoCocheRouter = require('./routes/estado_vehiculo')
 const marcaCocheRouter = require('./routes/marca')
 const tipoConbustibleCocheRouter = require('./routes/tipo_conbustible')
@@ -21,6 +22,7 @@ app.use('/modelo',modeloCocheRouter);
 app.use('/tipo',tipoCocheRouter);
 app.use('/coche',RegistroCocheRouter);
 app.use('/precio',precioCocheRouter);
+
 app.get('/', (req, res) => res.send('Hello World!'))
 const path = require('path');
 

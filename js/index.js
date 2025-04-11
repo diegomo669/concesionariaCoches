@@ -7,7 +7,7 @@ const acciones = {
   pibot: formularioPibot,
   usuario: formularioUsuario,
   producto: formularioProducto,
-  registrarcoche : formularioRegistroCoche,
+  registrarcoche : formularioRegistroCoche, 
 };
 
 crearMenu(acciones);

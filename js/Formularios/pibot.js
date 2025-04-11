@@ -57,7 +57,7 @@ export function formularioPibot() {
         const response = await fetch("http://localhost:3000/coches");
         const data = await response.json();
         const listaAutos = document.getElementById("lista-autos");
-    console.log(data)
+        console.log(data)
         if (data.success) {
             listaAutos.innerHTML = "<h2>Lista de Autos</h2>";
             data.coches.forEach(coche => {

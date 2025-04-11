@@ -8,7 +8,8 @@ export function crearMenu(acciones) {
     const botones = [
       { texto: 'pibot', accion: 'pibot' },
       { texto: 'Formulario Usuario', accion: 'usuario' },
-      { texto: 'Formulario Producto', accion: 'producto' }
+      { texto: 'Formulario Producto', accion: 'producto' },
+      { texto: 'Registrar Coche', accion: 'registrarcoche' }
     ];
   
     botones.forEach(btn => {

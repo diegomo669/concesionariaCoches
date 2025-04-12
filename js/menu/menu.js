@@ -30,4 +30,5 @@ export function crearMenu(acciones) {
       sidebar.classList.toggle('oculto');
     };
   }
+
   

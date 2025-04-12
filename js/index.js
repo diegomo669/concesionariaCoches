@@ -10,8 +10,24 @@ const acciones = {
   usuario: formularioUsuario,
   producto: formularioProducto,
   registrarcoche : formularioRegistroCoche, 
-  reservarcoche : formularioReservarCoche
+  reservarcoche : formularioReservarCoche,
 };
 
 crearMenu(acciones);
 formularioPibot();
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("logo-link").addEventListener("click", (e) => {
+    e.preventDefault();
+    document.getElementById("app").innerHTML = `
+      <h1>Bienvenido a la Concesionaria</h1>
+      <p>Esta es la página de inicio.</p>
+    `;
+  });
+
+  // Puedes cargar también esa vista por defecto automáticamente
+  document.getElementById("app").innerHTML = `
+    <h1>Bienvenido a la Concesionaria</h1>
+    <p>Esta es la página de inicio.</p>
+  `;
+});

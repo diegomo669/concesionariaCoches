@@ -30,6 +30,9 @@ router.get('/', async (req, res) => {
 });
 
 // Crear una nueva reserva
+
+const crypto = require('crypto'); //Necesario para generar un código único alfanumérico
+
 router.post('/', async (req, res) => {
     try {
         const {
@@ -40,22 +43,26 @@ router.post('/', async (req, res) => {
             telefono,
             gmail,
             monto_deposito,
-            id_coche
+            id_coche,
+            fecha_visita
         } = req.body;
 
         // Una Validación rápida
-        if (!nombre_cliente || !nro_documento || !gmail || !monto_deposito || !id_coche) {
+        if (!nombre_cliente || !nro_documento || !gmail || !monto_deposito || !id_coche || !fecha_visita) {
             return res.status(400).json({
                 success: false,
                 error: 'Faltan campos obligatorios.',
             });
         }
 
+        // Se genera un código único alfanumérico de 8 Caracteres Ejemplo: "A1B2C3D4"
+        const codigo_reserva = crypto.randomBytes(4).toString('hex').toUpperCase();
+
         const query = `
             INSERT INTO reservas (
                 nombre_cliente, apellido_paterno, apellido_materno,
-                nro_documento, telefono, gmail, monto_deposito, id_coche
-            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`;
+                nro_documento, telefono, gmail, monto_deposito, id_coche, fecha_visita, codigo_reserva
+            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`;
         const params = [
             nombre_cliente,
             apellido_paterno,
@@ -64,7 +71,9 @@ router.post('/', async (req, res) => {
             telefono,
             gmail,
             monto_deposito,
-            id_coche
+            id_coche,
+            fecha_visita,
+            codigo_reserva
         ];
 
         const result = await db.query(query, params);

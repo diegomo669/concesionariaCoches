@@ -36,6 +36,10 @@ export async function formularioReservarCoche() {
             <label for="id_coche" class="form-label">Seleccione un Coche</label>
             <select id="id_coche" name="id_coche" class="form-select" required></select>
           </div>
+          <div class="col-md-6">
+            <label for="fecha_visita" class="form-label">Fecha de Visita</label>
+            <input type="date" id="fecha_visita" name="fecha_visita" class="form-control" required />
+          </div>
           <div class="col-12 text-center">
             <button type="submit" class="btn btn-primary mt-3">Solicitar Reserva</button>
           </div>
@@ -74,7 +78,7 @@ export async function formularioReservarCoche() {
             });
             const result = await response.json();
             if (result.success) {
-                alert('Reserva realizada con éxito.');
+                alert(`Reserva realizada con éxito. Código de reserva es: ${result.reserva.codigo_reserva}`);
             } else {
                 alert('Error al realizar la reserva: ' + result.error);
             }

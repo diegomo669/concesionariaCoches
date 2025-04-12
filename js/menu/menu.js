@@ -10,7 +10,7 @@ export function crearMenu(acciones) {
       { texto: 'Formulario Usuario', accion: 'usuario' },
       { texto: 'Formulario Producto', accion: 'producto' },
       { texto: 'Registrar Coche', accion: 'registrarcoche' },
-      { texto: 'Reservar Coche', accion: 'reservarcoche' }
+      { texto: 'Reservar Coche', accion: 'reservarcoche' },
     ];
   
     botones.forEach(btn => {
@@ -30,4 +30,5 @@ export function crearMenu(acciones) {
       sidebar.classList.toggle('oculto');
     };
   }
+
   

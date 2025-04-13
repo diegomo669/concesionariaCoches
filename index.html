@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Generador de Facturas</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Factura de Compra</h1>
+
+  <button id="btnSolicitarFactura">Solicitar Factura</button>
+
+  <div id="formulario" style="display:none;">
+    <input type="text" id="marca" placeholder="Marca">
+    <input type="text" id="modelo" placeholder="Modelo">
+    <input type="text" id="chasis" placeholder="Nro Chasis">
+    <input type="number" id="precio" placeholder="Precio">
+    <input type="date" id="fecha" placeholder="Fecha de Compra">
+    <button id="btnGenerarFactura">Generar Factura</button>
+  </div>
+
+  <div id="factura" style="display:none;">
+    <h2>Factura Generada</h2>
+    <p id="detalleFactura"></p>
+    <button onclick="window.print()">Imprimir Factura</button>
+    <button id="btnEnviarCorreo">Enviar por Correo</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

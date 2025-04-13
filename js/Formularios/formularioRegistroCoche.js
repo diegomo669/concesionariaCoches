@@ -1,4 +1,6 @@
 export async function formularioRegistroCoche() {
+    let modalEditar; // Global dentro de la función principal
+
     const app = document.getElementById('app');
     app.innerHTML = `
      <form id="formRegistrarCoche" class="p-4 border rounded bg-light">
@@ -70,12 +72,50 @@ export async function formularioRegistroCoche() {
                     <th>Kilometraje</th>
                     <th>N° Puertas</th>
                     <th>N° Asientos</th>
+                    <th>Funciones</th>
                 </tr>
                 </thead>
                 <tbody id="tablaCoches">
                 <!-- Filas dinámicas aquí -->
                 </tbody>
             </table>
+        </div>
+        <!-- Modal de Edición -->
+        <div class="modal fade" id="modalEditarCoche" tabindex="-1" aria-labelledby="modalEditarLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                <div class="modal-content">
+                <form id="formEditarCoche">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="modalEditarLabel">Editar Coche</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body row g-3">
+                    <!-- Campos iguales al registro -->
+                    <input type="hidden" id="edit_id_coche" />
+                    <div class="col-md-4">
+                        <label class="form-label">Color</label>
+                        <input type="text" id="edit_color" class="form-control" required />
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Kilometraje</label>
+                        <input type="number" step="0.01" id="edit_kilometraje" class="form-control" required />
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">N° Puertas</label>
+                        <input type="number" id="edit_num_puertas" class="form-control" required />
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">N° Asientos</label>
+                        <input type="number" id="edit_num_asientos" class="form-control" required />
+                    </div>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    </div>
+                </form>
+                </div>
+            </div>
         </div>
 
 
@@ -169,9 +209,28 @@ export async function formularioRegistroCoche() {
                         <td>${coche.kilometraje}</td>
                         <td>${coche.num_puertas}</td>
                         <td>${coche.num_asientos}</td>
+                        <td>
+                            <button class="btn btn-sm btn-warning me-2" data-id="${coche.id_coche}" data-action="editar">Editar</button>
+                            <button class="btn btn-sm btn-danger" data-id="${coche.id_coche}" data-action="eliminar">Eliminar</button>
+                        </td>
                     `;
                     tabla.appendChild(fila);
+                    fila.querySelectorAll("button").forEach(btn => {
+                        btn.addEventListener("click", async () => {
+                            const id = btn.dataset.id;
+                            const action = btn.dataset.action;
+                    
+                            if (action === "eliminar") {
+                                if (confirm("¿Estás seguro de que quieres eliminar este coche?")) {
+                                    await eliminarCoche(id);
+                                }
+                            } else if (action === "editar") {
+                                await editarCoche(id);
+                            }
+                        });
+                    });
                 });
+                
             } else {
                 console.error("La API no devolvió datos válidos:", data);
                 alert("No se pudieron cargar los coches. Verifica la respuesta del servidor.");
@@ -180,5 +239,82 @@ export async function formularioRegistroCoche() {
             console.error("Error al cargar coches:", error);
             alert("Error al conectar con el servidor.");
         }
+        
     }
+    async function eliminarCoche(id) {
+        try {
+            const response = await fetch(`http://localhost:3000/coche/${id}`, {
+                method: "DELETE"
+            });
+    
+            const result = await response.json();
+            alert(result.success ? "Coche eliminado correctamente." : "Error al eliminar coche: " + result.error);
+            await cargarCoches();
+        } catch (error) {
+            console.error("Error al eliminar coche:", error);
+            alert("Error al conectar con el servidor.");
+        }
+    }
+    
+    async function editarCoche(id) {
+        try {
+            const res = await fetch(`http://localhost:3000/coche/${id}`);
+            const data = await res.json();
+            console.log(data);
+            if (data.success && data.resultado) {
+                const coche = data.resultado;
+    
+                document.getElementById("edit_id_coche").value = coche.id_coche;
+                document.getElementById("edit_color").value = coche.color;
+                document.getElementById("edit_kilometraje").value = coche.kilometraje;
+                document.getElementById("edit_num_puertas").value = coche.num_puertas;
+                document.getElementById("edit_num_asientos").value = coche.num_asientos;
+    
+                // Mostrar el modal
+                if (!modalEditar) {
+                    modalEditar = new bootstrap.Modal(document.getElementById("modalEditarCoche"));
+                }
+                modalEditar.show();
+            } else {
+                alert("No se pudo cargar el coche para editar.");
+            }
+        } catch (err) {
+            console.error("Error al cargar datos del coche:", err);
+            alert("Error al obtener los datos del coche.");
+        }
+    }
+    
+    document.getElementById("formEditarCoche").addEventListener("submit", async function (e) {
+        e.preventDefault();
+    
+        const data = {
+            color: document.getElementById("edit_color").value,
+            kilometraje: parseFloat(document.getElementById("edit_kilometraje").value),
+            num_puertas: parseInt(document.getElementById("edit_num_puertas").value),
+            num_asientos: parseInt(document.getElementById("edit_num_asientos").value),
+        };
+    
+        const id = document.getElementById("edit_id_coche").value;
+    
+        try {
+            const res = await fetch(`http://localhost:3000/coche/${id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            });
+    
+            const result = await res.json();
+    
+            if (result.success) {
+                modalEditar.hide();
+                await cargarCoches();
+                alert("Coche actualizado correctamente.");
+            } else {
+                alert("Error al actualizar: " + result.error);
+            }
+        } catch (err) {
+            console.error("Error al actualizar coche:", err);
+            alert("Error en la conexión con el servidor.");
+        }
+    });
 }

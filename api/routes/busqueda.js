@@ -7,7 +7,29 @@ const db = require('../db');
         try {
             const tipo = req.params.tipo;
             const query = `
-                select * from coche c inner join tipo_vehiculo tv on c.id_tipo_vehiculo = tv.id_tipo_vehiculo where tv.tipo = $1;
+                SELECT 
+                    c.ID_COCHE,
+                    c.ID_MODELO,
+                    c.ID_MARCA,
+                    c.ID_TIPO_VEHICULO,
+                    c.ID_TIPO_COMBUSTIBLE,
+                    C.ID_ESTADO_VEHICULO,
+                    mo.MODELO_COCHE AS modelo,
+                    ma.MARCA_COCHE AS marca,
+                    tv.TIPO AS tipo_vehiculo,
+                    tc.COMBUSTIBLE AS tipo_combustible,
+                    ev.ESTADO AS estado_vehiculo,
+                    c.COLOR,
+                    c.KILOMETRAJE,
+                    c.NUMPUERTAS AS num_puertas,
+                    c.NUMASIENTOS AS num_asientos
+                FROM 
+                    COCHE c
+                JOIN MODELO mo ON c.ID_MODELO = mo.ID_MODELO
+                JOIN MARCA ma ON c.ID_MARCA = ma.ID_MARCA
+                JOIN TIPO_VEHICULO tv ON c.ID_TIPO_VEHICULO = tv.ID_TIPO_VEHICULO
+                JOIN TIPO_COMBUSTIBLE tc ON c.ID_TIPO_COMBUSTIBLE = tc.ID_TIPO_COMBUSTIBLE
+                JOIN ESTADO_VEHICULO ev ON c.ID_ESTADO_VEHICULO = ev.ID_ESTADO_VEHICULO where tv.tipo = $1;
             `;
             const result = await db.query(query, [tipo]);
     

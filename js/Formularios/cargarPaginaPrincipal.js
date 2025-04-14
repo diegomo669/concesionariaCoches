@@ -72,24 +72,35 @@ async function sitio() {
       <hr>
   
       <h2>Filtrar Coches por Tipo</h2>
-      <form id="form-busqueda">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="Sedán" id="tipoSedan">
-          <label class="form-check-label" for="tipoSedan">Sedán</label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="SUV" id="tipoSUV">
-          <label class="form-check-label" for="tipoSUV">SUV</label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="Pickup" id="tipoPickup">
-          <label class="form-check-label" for="tipoPickup">Pickup</label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="Hatchback" id="tipoHatchback">
-          <label class="form-check-label" for="tipoHatchback">Hatchback</label>
-        </div>
-        <button type="submit" class="btn btn-primary mt-3">Buscar</button>
+      
+      <form id="form_busqueda">
+        <p>Selecciona tu tipo de vehículo:</p>
+
+        <label>
+          <input type="radio" name="tipo" value="Sedán" />
+          Sedán
+        </label><br>
+
+        <label>
+          <input type="radio" name="tipo" value="SUV" />
+          SUV
+        </label><br>
+
+        <label>
+          <input type="radio" name="tipo" value="Pickup" />
+          Pickup
+        </label><br>
+
+        <label>
+          <input type="radio" name="tipo" value="Hatchback" />
+          Hatchback
+        </label><br>
+        <label>
+          <input type="radio" name="tipo" value="autobuses" />
+          autobuses
+        </label><br>
+
+        <button type="submit">Enviar</button>
       </form>
   
       <div id="resultadoBusqueda" class="mt-4"></div>
@@ -97,32 +108,59 @@ async function sitio() {
     `;
     app.innerHTML = view;
     
-    
+    const form = document.getElementById(`form_busqueda`);
+    form.addEventListener('submit',buscarvehiculo)
    
     cargarCoches(Lista_coche);
-    document.getElementById("form-busqueda").addEventListener("submit", function (e) {
-      e.preventDefault();
+    // document.getElementById("form-busqueda").addEventListener("submit", function (e) {
+    //   e.preventDefault();
   
-      const seleccionados = Array.from(document.querySelectorAll('input[type=checkbox]:checked'))
-                                 .map(cb => cb.value);
+    //   const seleccionados = Array.from(document.querySelectorAll('input[type=checkbox]:checked'))
+    //                              .map(cb => cb.value);
   
-      const resultado = document.getElementById("resultadoBusqueda");
-      if (seleccionados.length === 0) {
-        resultado.innerHTML = `<p>No seleccionaste ningún tipo de coche.</p>`;
-      } else {
-        resultado.innerHTML = `
-          <p><strong>Buscando coches de tipo:</strong> ${seleccionados.join(", ")}</p>
-        `;
-        // Aquí podrías llamar al backend en el futuro si quieres filtrar de verdad
-      }
-    });
+    //   const resultado = document.getElementById("resultadoBusqueda");
+    //   if (seleccionados.length === 0) {
+    //     resultado.innerHTML = `<p>No seleccionaste ningún tipo de coche.</p>`;
+    //   } else {
+    //     resultado.innerHTML = `
+    //       <p><strong>Buscando coches de tipo:</strong> ${seleccionados.join(", ")}</p>
+    //     `;
+    //     // Aquí podrías llamar al backend en el futuro si quieres filtrar de verdad
+    //   }
+    // });
+}
+async function buscarvehiculo(e){
+  e.preventDefault();
+  const tipoSeleccionado = document.querySelector('input[name="tipo"]:checked');
+
+  if (!tipoSeleccionado) {
+    alert("Selecciona un tipo de vehículo");
+    return;
+  }
+
+  const tipo = tipoSeleccionado.value;
+
+  try {
+    const response = await fetch(`http://localhost:3000/buscar/${tipo}`);
+    const result = await response.json();
+    
+    console.log(result);
+    cargarCoches(result);
+    
+  } catch (error) {
+    console.error("Error al enviar formulario:", error);
+    alert("Error en la conexión con el servidor.");
+  }
+
 }
 
 
-
 async function cargarCoches(data) {
+  console.log(data)
   try {
-    if (data.success && Array.isArray(data.resultado)) {
+
+    if (data.success && data.resultado) {
+      
       const contenedor = document.getElementById("resultadoBusqueda");
       contenedor.innerHTML = ""; // Limpiar antes de renderizar
 
@@ -130,7 +168,7 @@ async function cargarCoches(data) {
       const row = document.createElement("div");
       row.className = "row row-cols-1 row-cols-md-3 g-4";
 
-      data.resultado.forEach(coche => {
+      data.resultado.map(coche => {
         const col = document.createElement("div");
         col.className = "col";
 
@@ -168,7 +206,7 @@ async function cargarCoches(data) {
       contenedor.appendChild(row);
     } else {
       console.error("La API no devolvió datos válidos:", data);
-      alert("No se pudieron cargar los coches. Verifica la respuesta del servidor.");
+      alert("No se Encontraron Vehiculos");
     }
   } catch (error) {
     console.error("Error al cargar coches:", error);

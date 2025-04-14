@@ -15,6 +15,7 @@ const tipoCocheRouter = require('./routes/tipo_vehiculo')
 const RegistroCocheRouter = require('./routes/coche')
 const precioCocheRouter = require('./routes/precio')
 const reservasRouter = require('./routes/reservas');
+const busquedaRouter = require('./routes/busqueda')
 app.use('/reservas', reservasRouter);
 app.use('/coches',cochesRouter);
 app.use('/estadocoche',estadoCocheRouter);
@@ -24,7 +25,7 @@ app.use('/modelo',modeloCocheRouter);
 app.use('/tipo',tipoCocheRouter);
 app.use('/coche',RegistroCocheRouter);
 app.use('/precio',precioCocheRouter);
-
+app.use('/buscar',busquedaRouter)
 app.get('/', (req, res) => res.send('Hello World!'))
 const path = require('path');
 

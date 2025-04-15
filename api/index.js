@@ -10,6 +10,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const cochesRouter = require('./routes/coches');
 const usuariosRouter = require('./routes/Usuarios')
+const verificacionRouter = require('./routes/verificacion')
 const estadoCocheRouter = require('./routes/estado_vehiculo')
 const marcaCocheRouter = require('./routes/marca')
 const tipoConbustibleCocheRouter = require('./routes/tipo_conbustible')
@@ -33,6 +34,7 @@ app.use('/coche',RegistroCocheRouter);
 app.use('/precio',precioCocheRouter);
 app.use('/buscar',busquedaRouter)
 app.use('/usuarios', usuariosRouter);
+app.use('/', verificacionRouter);
 app.use('/cocheimg',cocheimgRouter); // 🆕 Usar la nueva ruta aquí
 app.use('/cliente',clienteRouter); // 🆕 Usar la nueva ruta aquí
 app.get('/', (req, res) => res.send('Hello World!'))

@@ -15,7 +15,9 @@ const tipoCocheRouter = require('./routes/tipo_vehiculo')
 const RegistroCocheRouter = require('./routes/coche')
 const precioCocheRouter = require('./routes/precio')
 const reservasRouter = require('./routes/reservas')
-const busquedaRouter = require('./routes/busqueda');
+const busquedaRouter = require('./routes/busqueda')
+const cocheimgRouter = require('./routes/cocheimg'); // 🆕 Importa la nueva ruta de imágenes
+
 app.use('/reservas', reservasRouter);
 app.use('/coches',cochesRouter);
 app.use('/estadocoche',estadoCocheRouter);
@@ -27,6 +29,7 @@ app.use('/coche',RegistroCocheRouter);
 app.use('/precio',precioCocheRouter);
 app.use('/buscar',busquedaRouter)
 app.use('/usuarios', usuariosRouter);
+app.use('/cocheimg',cocheimgRouter); // 🆕 Usar la nueva ruta aquí
 app.get('/', (req, res) => res.send('Hello World!'))
 const path = require('path');
 
@@ -34,6 +37,3 @@ const path = require('path');
 app.use(express.static(path.join(__dirname, 'public')));
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 
-app.listen(3000, () => {
-    console.log('🚀 Servidor corriendo en http://localhost:3000');
-  });

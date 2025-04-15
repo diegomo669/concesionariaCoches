@@ -33,12 +33,12 @@ async function listar() {
     try {
       // Usamos Promise.all() para ejecutar todas las solicitudes en paralelo
       const resultados = await Promise.all([
-          fetch(`http://localhost:3000/modelo`),
-          fetch(`http://localhost:3000/marca`),
-          fetch(`http://localhost:3000/tipo`),
-          fetch(`http://localhost:3000/tipocombustible`),
-          fetch(`http://localhost:3000/estadocoche`),
-          fetch("http://localhost:3000/coche")
+          fetch(`https://apicon-sa5n.onrender.com/modelo`),
+          fetch(`https://apicon-sa5n.onrender.com/marca`),
+          fetch(`https://apicon-sa5n.onrender.com/tipo`),
+          fetch(`https://apicon-sa5n.onrender.com/tipocombustible`),
+          fetch(`https://apicon-sa5n.onrender.com/estadocoche`),
+          fetch("https://apicon-sa5n.onrender.com/coche")
       ]);
   
       // Convertimos las respuestas a JSON
@@ -141,7 +141,7 @@ async function buscarvehiculo(e){
   const tipo = tipoSeleccionado.value;
 
   try {
-    const response = await fetch(`http://localhost:3000/buscar/${tipo}`);
+    const response = await fetch(`https://apicon-sa5n.onrender.com/buscar/${tipo}`);
     const result = await response.json();
     
     console.log(result);

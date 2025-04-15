@@ -50,7 +50,7 @@ export async function formularioReservarCoche() {
     // Cargar opciones de coches desde la base de datos
     const selectCoche = document.getElementById('id_coche');
     try {
-        const response = await fetch('http://localhost:3000/coche');
+        const response = await fetch('https://apicon-sa5n.onrender.com/coche');
         const data = await response.json();
         if (data.success) {
             data.resultado.forEach(coche => {
@@ -71,7 +71,7 @@ export async function formularioReservarCoche() {
         e.preventDefault();
         const data = Object.fromEntries(new FormData(e.target).entries());
         try {
-            const response = await fetch('http://localhost:3000/reservas', {
+            const response = await fetch('https://apicon-sa5n.onrender.com/reservas', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data),

@@ -141,11 +141,11 @@ export async function formularioRegistroCoche() {
 
       }   
  
-      await cargarSelect("http://localhost:3000/modelo", "id_modelo", "modelo_coche", "id_modelo");
-      await cargarSelect("http://localhost:3000/marca", "id_marca", "marca_coche", "id_marca");
-      await cargarSelect("http://localhost:3000/tipo", "id_tipo_vehiculo", "tipo", "id_tipo_vehiculo");
-      await cargarSelect("http://localhost:3000/tipocombustible", "id_tipo_combustible", "combustible", "id_tipo_combustible");
-      await cargarSelect("http://localhost:3000/estadocoche", "id_estado_vehiculo", "estado", "id_estado_vehiculo");
+      await cargarSelect("https://apicon-sa5n.onrender.com/modelo", "id_modelo", "modelo_coche", "id_modelo");
+      await cargarSelect("https://apicon-sa5n.onrender.com/marca", "id_marca", "marca_coche", "id_marca");
+      await cargarSelect("https://apicon-sa5n.onrender.com/tipo", "id_tipo_vehiculo", "tipo", "id_tipo_vehiculo");
+      await cargarSelect("https://apicon-sa5n.onrender.com/tipocombustible", "id_tipo_combustible", "combustible", "id_tipo_combustible");
+      await cargarSelect("https://apicon-sa5n.onrender.com/estadocoche", "id_estado_vehiculo", "estado", "id_estado_vehiculo");
   
       // Carga la tabla de coches (con await)
       await cargarCoches();
@@ -169,7 +169,7 @@ export async function formularioRegistroCoche() {
         };
     
         try {
-        const response = await fetch("http://localhost:3000/coche", {
+        const response = await fetch("https://apicon-sa5n.onrender.com/coche", {
             method: "POST",
             headers: {
             "Content-Type": "application/json"
@@ -188,7 +188,7 @@ export async function formularioRegistroCoche() {
 
     async function cargarCoches() {
         try {
-            const response = await fetch("http://localhost:3000/coche");
+            const response = await fetch("https://apicon-sa5n.onrender.com/coche");
             const data = await response.json();
             console.log("Respuesta de la API:", data); // Para depuración
     
@@ -243,7 +243,7 @@ export async function formularioRegistroCoche() {
     }
     async function eliminarCoche(id) {
         try {
-            const response = await fetch(`http://localhost:3000/coche/${id}`, {
+            const response = await fetch(`https://apicon-sa5n.onrender.com/coche/${id}`, {
                 method: "DELETE"
             });
     
@@ -258,7 +258,7 @@ export async function formularioRegistroCoche() {
     
     async function editarCoche(id) {
         try {
-            const res = await fetch(`http://localhost:3000/coche/${id}`);
+            const res = await fetch(`https://apicon-sa5n.onrender.com/coche/${id}`);
             const data = await res.json();
             console.log(data);
             if (data.success && data.resultado) {
@@ -297,7 +297,7 @@ export async function formularioRegistroCoche() {
         const id = document.getElementById("edit_id_coche").value;
     
         try {
-            const res = await fetch(`http://localhost:3000/coche/${id}`, {
+            const res = await fetch(`https://apicon-sa5n.onrender.com/coche/${id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(data)

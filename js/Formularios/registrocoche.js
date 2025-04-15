@@ -24,12 +24,12 @@ async function listar() {
     try {
       // Usamos Promise.all() para ejecutar todas las solicitudes en paralelo
       const resultados = await Promise.all([
-          fetch(`http://localhost:3000/modelo`),
-          fetch(`http://localhost:3000/marca`),
-          fetch(`http://localhost:3000/tipo`),
-          fetch(`http://localhost:3000/tipocombustible`),
-          fetch(`http://localhost:3000/estadocoche`),
-          fetch("http://localhost:3000/coche")
+          fetch(`https://apicon-sa5n.onrender.com/modelo`),
+          fetch(`https://apicon-sa5n.onrender.com/marca`),
+          fetch(`https://apicon-sa5n.onrender.com/tipo`),
+          fetch(`https://apicon-sa5n.onrender.com/tipocombustible`),
+          fetch(`https://apicon-sa5n.onrender.com/estadocoche`),
+          fetch("https://apicon-sa5n.onrender.com/coche")
       ]);
   
       // Convertimos las respuestas a JSON
@@ -236,7 +236,7 @@ async function registrar(e) {
     }
   
     try {
-      const response = await fetch("http://localhost:3000/coche", {
+      const response = await fetch("https://apicon-sa5n.onrender.com/coche", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -251,7 +251,7 @@ async function registrar(e) {
       const result = await response.json();
       console.log(result);
       alert(result.success ? "Coche registrado correctamente" : "Error: " + result.error);
-      const responseGET = await fetch("http://localhost:3000/coche");
+      const responseGET = await fetch("https://apicon-sa5n.onrender.com/coche");
       const Lista = await responseGET.json();
       cargarCoches(Lista);
     } catch (error) {
@@ -334,13 +334,13 @@ async function cargarSelect(lista, selectId, labelField = "nombre", valueField =
 
 async function eliminarCoche(id) {
     try {
-        const response = await fetch(`http://localhost:3000/coche/${id}`, {
+        const response = await fetch(`https://apicon-sa5n.onrender.com/coche/${id}`, {
             method: "DELETE"
         });
 
         const result = await response.json();
         alert(result.success ? "Coche eliminado correctamente." : "Error al eliminar coche: " + result.error);
-        const responseGET = await fetch("http://localhost:3000/coche");
+        const responseGET = await fetch("https://apicon-sa5n.onrender.com/coche");
         const Lista = await responseGET.json();
         cargarCoches(Lista);
     } catch (error) {
@@ -351,7 +351,7 @@ async function eliminarCoche(id) {
 
 async function editarCoche(id) {
     try {
-      const res = await fetch(`http://localhost:3000/coche/${id}`);
+      const res = await fetch(`https://apicon-sa5n.onrender.com/coche/${id}`);
       console.log("Respuesta:", res);
   
       if (!res.ok) {
@@ -408,7 +408,7 @@ async function editarCoche(id) {
     };
   
     try {
-      const response = await fetch(`http://localhost:3000/coche/${data.id_coche}`, {
+      const response = await fetch(`https://apicon-sa5n.onrender.com/coche/${data.id_coche}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -419,7 +419,7 @@ async function editarCoche(id) {
       if (result.success) {
         alert("Coche actualizado correctamente.");
         modalEditar.hide();
-        const res = await fetch("http://localhost:3000/coche");
+        const res = await fetch("https://apicon-sa5n.onrender.com/coche");
         const Lista = await res.json();
         cargarCoches(Lista);
       } else {

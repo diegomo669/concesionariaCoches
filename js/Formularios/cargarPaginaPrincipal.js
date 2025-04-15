@@ -34,22 +34,14 @@ async function listar() {
     try {
       // Usamos Promise.all() para ejecutar todas las solicitudes en paralelo
       const resultados = await Promise.all([
-<<<<<<< HEAD
+
           fetch(`https://apicon-sa5n.onrender.com/modelo`),
           fetch(`https://apicon-sa5n.onrender.com/marca`),
           fetch(`https://apicon-sa5n.onrender.com/tipo`),
           fetch(`https://apicon-sa5n.onrender.com/tipocombustible`),
           fetch(`https://apicon-sa5n.onrender.com/estadocoche`),
-          fetch("https://apicon-sa5n.onrender.com/coche")
-=======
-          fetch(`http://localhost:3000/modelo`),
-          fetch(`http://localhost:3000/marca`),
-          fetch(`http://localhost:3000/tipo`),
-          fetch(`http://localhost:3000/tipocombustible`),
-          fetch(`http://localhost:3000/estadocoche`),
-          fetch("http://localhost:3000/coche"),
-           fetch(`http://localhost:3000/cocheimg`) // 🆕 llamada para las imágenes
->>>>>>> 728aa2b2f28beeb0a654797d7e524b16adbbe134
+          fetch("https://apicon-sa5n.onrender.com/coche"),
+           fetch(`https://apicon-sa5n.onrender.com/cocheimg`) // 🆕 llamada para las imágenes
       ]);
   
       // Convertimos las respuestas a JSON

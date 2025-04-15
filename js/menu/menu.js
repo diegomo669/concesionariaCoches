@@ -11,6 +11,7 @@ export function crearMenu(acciones) {
       { texto: 'Formulario Producto', accion: 'producto' },
       { texto: 'Registrar Coche', accion: 'registrarcoche' },
       { texto: 'Reservar Coche', accion: 'reservarcoche' },
+      { texto: 'Registrar Cliente', accion: 'registrocliente' },
     ];
   
     botones.forEach(btn => {

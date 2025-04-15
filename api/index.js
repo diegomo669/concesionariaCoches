@@ -20,6 +20,7 @@ const precioCocheRouter = require('./routes/precio')
 const reservasRouter = require('./routes/reservas')
 const busquedaRouter = require('./routes/busqueda')
 const cocheimgRouter = require('./routes/cocheimg'); // 🆕 Importa la nueva ruta de imágenes
+const clienteRouter = require('./routes/clientes')
 
 app.use('/reservas', reservasRouter);
 app.use('/coches',cochesRouter);
@@ -33,6 +34,7 @@ app.use('/precio',precioCocheRouter);
 app.use('/buscar',busquedaRouter)
 app.use('/usuarios', usuariosRouter);
 app.use('/cocheimg',cocheimgRouter); // 🆕 Usar la nueva ruta aquí
+app.use('/cliente',clienteRouter); // 🆕 Usar la nueva ruta aquí
 app.get('/', (req, res) => res.send('Hello World!'))
 
 

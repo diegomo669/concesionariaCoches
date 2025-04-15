@@ -5,12 +5,14 @@ import { formularioPibot } from './Formularios/pibot.js';
 import { registroCoche } from './Formularios/registrocoche.js';
 import { formularioReservarCoche } from './Formularios/formularioReservarCoche.js';
 import { cargarPaginaPrincipal } from "./Formularios/cargarPaginaPrincipal.js";
+import { registroCliente } from './Formularios/formularioCliente.js';
 const acciones = {
   pibot: formularioPibot,
   usuario: formularioUsuario,
   producto: formularioProducto,
   registrarcoche : registroCoche, 
   reservarcoche : formularioReservarCoche,
+  registrocliente : registroCliente,
 };
 
 crearMenu(acciones);

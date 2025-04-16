@@ -22,6 +22,7 @@ const reservasRouter = require('./routes/reservas')
 const busquedaRouter = require('./routes/busqueda')
 const cocheimgRouter = require('./routes/cocheimg'); // 🆕 Importa la nueva ruta de imágenes
 const clienteRouter = require('./routes/clientes')
+const visitasRouter = require('./routes/visitas');
 
 app.use('/reservas', reservasRouter);
 app.use('/coches',cochesRouter);
@@ -37,6 +38,7 @@ app.use('/usuarios', usuariosRouter);
 app.use('/', verificacionRouter);
 app.use('/cocheimg',cocheimgRouter); // 🆕 Usar la nueva ruta aquí
 app.use('/cliente',clienteRouter); // 🆕 Usar la nueva ruta aquí
+app.use('/visitas', visitasRouter);
 app.get('/', (req, res) => res.send('Hello World!'))
 
 

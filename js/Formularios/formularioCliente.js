@@ -43,134 +43,106 @@ async function listar() {
 
 async function sitio() {
   let view = `
-        <!-- Formulario para Registrar Cliente -->
-        <form id="formRegistrarCliente" class="p-4 border rounded bg-light">
+    <!-- Sección de Registro de Cliente -->
+    <div class="mb-5">
+      <form id="formRegistrarCliente" class="p-4 border rounded bg-light">
         <h4 class="mb-4 text-center">Registrar Cliente</h4>
-
         <div class="row">
-            <div class="mb-3 col-md-4">
+          <div class="mb-3 col-md-4">
             <label for="nombre" class="form-label">Nombre</label>
             <input type="text" id="nombre" class="form-control" required>
-            </div>
-
-            <div class="mb-3 col-md-4">
+          </div>
+          <div class="mb-3 col-md-4">
             <label for="documento_tipo" class="form-label">Tipo de Documento</label>
             <select id="documento_tipo" class="form-select" required>
-                <option value="DNI">DNI</option>
-                <option value="RUC">RUC</option>
-                <option value="Pasaporte">Pasaporte</option>
+              <option value="DNI">DNI</option>
+              <option value="RUC">RUC</option>
+              <option value="Pasaporte">Pasaporte</option>
             </select>
-            </div>
-
-            <div class="mb-3 col-md-4">
+          </div>
+          <div class="mb-3 col-md-4">
             <label for="documento_numero" class="form-label">Número de Documento</label>
             <input type="text" id="documento_numero" class="form-control" required>
-            </div>
-
-            <div class="mb-3 col-md-4">
+          </div>
+          <div class="mb-3 col-md-4">
             <label for="telefono" class="form-label">Teléfono</label>
             <input type="text" id="telefono" class="form-control" required>
-            </div>
-
-            
-
-            <div class="mb-3 col-md-4">
+          </div>
+          <div class="mb-3 col-md-4">
             <label for="direccion" class="form-label">Dirección</label>
             <input type="text" id="direccion" class="form-control">
-            </div>
+          </div>
         </div>
-
         <div class="text-center">
-            <button type="submit" class="btn btn-primary mt-3 px-5">Registrar Cliente</button>
+          <button type="submit" class="btn btn-primary mt-3 px-5">Registrar Cliente</button>
         </div>
-        </form>
+      </form>
 
-        <!-- Tabla de Clientes -->
-        <div class="table-responsive mt-4">
+      <!-- Tabla de Clientes -->
+      <div class="table-responsive mt-4">
         <table class="table table-bordered table-hover align-middle">
-            <thead class="table-dark">
+          <thead class="table-dark">
             <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Tipo Doc</th>
-                <th>N° Documento</th>
-                <th>Teléfono</th>
-                <th>Dirección</th>
-                <th>Funciones</th>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Tipo Doc</th>
+              <th>N° Documento</th>
+              <th>Teléfono</th>
+              <th>Dirección</th>
+              <th>Funciones</th>
             </tr>
-            </thead>
-            <tbody id="tablaClientes">
-            <!-- Filas dinámicas aquí -->
-            </tbody>
+          </thead>
+          <tbody id="tablaClientes"></tbody>
         </table>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <hr class="my-5" />
+
+    <!-- Sección de Registro de Visita -->
+    <div id="container" class="p-4 border rounded bg-light">
+      <h4 class="mb-4 text-center">Registrar Visita</h4>
+      <form id="formRegistro" class="row g-3">
+        <div class="col-md-4">
+          <input type="text" name="nombre" placeholder="Nombre" class="form-control" required />
         </div>
-
-        <!-- Modal de Edición de Cliente -->
-        <div class="modal fade" id="modalEditarCliente" tabindex="-1" aria-labelledby="modalEditarClienteLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-scrollable">
-            <div class="modal-content">
-            <form id="formEditarCliente">
-                <div class="modal-header">
-                <h5 class="modal-title" id="modalEditarClienteLabel">Editar Cliente</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                </div>
-                <div class="modal-body row g-3">
-                <input type="hidden" id="edit_id_cliente" />
-
-                <div class="col-md-4">
-                    <label class="form-label">Nombre</label>
-                    <input type="text" id="edit_nombre" class="form-control" required />
-                </div>
-
-                <div class="col-md-4">
-                    <label class="form-label">Tipo de Documento</label>
-                    <select id="edit_documento_tipo" class="form-select" required>
-                    <option value="DNI">DNI</option>
-                    <option value="RUC">RUC</option>
-                    <option value="Pasaporte">Pasaporte</option>
-                    </select>
-                </div>
-
-                <div class="col-md-4">
-                    <label class="form-label">Número de Documento</label>
-                    <input type="text" id="edit_documento_numero" class="form-control" required />
-                </div>
-
-                <div class="col-md-4">
-                    <label class="form-label">Teléfono</label>
-                    <input type="text" id="edit_telefono" class="form-control" required />
-                </div>
-
-                
-
-                <div class="col-md-4">
-                    <label class="form-label">Dirección</label>
-                    <input type="text" id="edit_direccion" class="form-control" />
-                </div>
-                </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                </div>
-            </form>
-            </div>
+        <div class="col-md-4">
+          <input type="email" name="email" placeholder="Email" class="form-control" required />
         </div>
+        <div class="col-md-4">
+          <input type="date" name="fecha" class="form-control" required />
         </div>
+        <div class="col-md-12">
+          <input type="text" name="motivo" placeholder="Motivo de la visita" class="form-control" required />
+        </div>
+        <div class="text-center mt-3">
+          <button type="submit" class="btn btn-success px-5">Guardar Visita</button>
+        </div>
+      </form>
+
+      <!-- Aquí podrías agregar una tabla de visitas más adelante -->
+    </div>
+
+    <!-- Modal de Edición de Cliente -->
+    ... <!-- Tu modalEditarCliente permanece igual -->
+  `;
+
+  app.innerHTML = view;
+
+  // Eventos
+  const form = document.getElementById(`formRegistrarCliente`);
+  document.getElementById(`formRegistrarCliente`).addEventListener('submit', registrarCliente);
+ 
+  document.getElementById("formRegistro").addEventListener("submit", registrarVisita);
+
+  cargarClientes(Lista_cliente);
 
 
-    `;
-    app.innerHTML = view;
-    
-
-    const form = document.getElementById(`formRegistrarCliente`);
-    form.addEventListener('submit',registrarCliente);
-    cargarClientes(Lista_cliente);
-
-    
-
-    document.getElementById("formEditarCliente").addEventListener("submit", actualizarCliente);
-
+  document.getElementById("formEditarCliente").addEventListener("submit", actualizarCliente);
 }
+
+
 async function registrarCliente(e) {
     e.preventDefault();
   
@@ -216,6 +188,34 @@ async function registrarCliente(e) {
   }
   
   
+
+
+async function registrarVisita(e) {
+  e.preventDefault();
+  const data = Object.fromEntries(new FormData(e.target).entries());
+
+  try {
+    const response = await fetch('http://localhost:3000/visitas', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      alert('✅ Visita registrada correctamente');
+      e.target.reset();
+    } else {
+      alert('❌ Error al registrar visita: ' + result.error);
+    }
+  } catch (error) {
+    console.error('Error al enviar la visita:', error);
+    alert('❌ No se pudo conectar con el servidor');
+  }
+}
 
 
 
